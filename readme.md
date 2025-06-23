@@ -1,4 +1,4 @@
-# Proyecto Final E-Commerce - [Tu Nombre]
+# Proyecto Final 
 
 Este proyecto es una **API RESTful** desarrollada con **Node.js** y **Express.js** que permite gestionar productos de una tienda en línea. La API permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre los productos, manejar autenticación de usuarios con JWT y guardar los datos en archivo JSON local y en la nube usando Firebase Firestore.
 
@@ -22,6 +22,7 @@ Este proyecto es una **API RESTful** desarrollada con **Node.js** y **Express.js
 /controllers   --> Lógica de negocio
 /models        --> Modelos de datos
 /routes        --> Endpoints de la API
+/script
 /services      --> Acceso a Firestore y JSON
 /middlewares   --> Middleware de autenticación y errores
 /utils         --> Funciones auxiliares
@@ -56,8 +57,8 @@ Actualmente, se encuentra implementado un endpoint de login que verifica el `use
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/proyecto-final-ecommerce-tu-nombre.git
-cd proyecto-final-ecommerce-tu-nombre
+git clone https://github.com/tu-usuario/proyecto-final-tu-nombre.git
+cd proyecto-final-tu-nombre
 ```
 
 2. Instalar dependencias:
