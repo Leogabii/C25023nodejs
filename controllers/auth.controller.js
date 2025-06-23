@@ -1,17 +1,32 @@
-import { db, collection, getDocs } from '../services/firestore.service.js';
+// controllers/auth.controller.js
 import jwt from 'jsonwebtoken';
+import { db } from '../config/firestore.config.js';
 
-export async function login(req, res) {
+const usersRef = db.collection('users');
+
+export const login = async (req, res) => {
   const { username, password } = req.body;
-  const usuariosRef = collection(db, 'usuario');
-  const snapshot = await getDocs(usuariosRef);
-  const userDoc = snapshot.docs.find(doc => {
-    const data = doc.data();
-    return data.username === username && data.password === password;
-  });
 
-  if (!userDoc) return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
+  try {
+    const snapshot = await usersRef.where('username', '==', username).get();
 
-  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token });
-}
+    if (snapshot.empty) {
+      return res.status(401).json({ msg: 'Usuario no encontrado' });
+    }
+
+    const userDoc = snapshot.docs[0];
+    const userData = userDoc.data();
+
+    if (userData.password !== password) {
+      return res.status(401).json({ msg: 'Contraseña incorrecta' });
+    }
+
+    const token = jwt.sign({ username }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ msg: 'Error al autenticar', error: error.message });
+  }
+};

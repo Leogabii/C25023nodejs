@@ -1,29 +1,34 @@
-import { db, collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from '../services/firestore.service.js';
+// controllers/productos.controller.js
+import { db } from '../config/firestore.config.js';
 
-export async function obtenerProductos(req, res) {
-  const productosRef = collection(db, 'productos');
-  const snapshot = await getDocs(productosRef);
+const collection = db.collection('productos');
+
+export const getAllProductos = async (req, res) => {
+  const snapshot = await collection.get();
   const productos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   res.json(productos);
-}
+};
 
-export async function agregarProducto(req, res) {
-  const { descripcion, precio } = req.body;
-  const productosRef = collection(db, 'productos');
-  const nuevo = await addDoc(productosRef, { descripcion, precio });
-  res.json({ id: nuevo.id });
-}
+export const getProductoById = async (req, res) => {
+  const doc = await collection.doc(req.params.id).get();
+  if (!doc.exists) return res.status(404).json({ msg: 'Producto no encontrado' });
+  res.json({ id: doc.id, ...doc.data() });
+};
 
-export async function actualizarProducto(req, res) {
+export const createProducto = async (req, res) => {
+  const data = req.body;
+  const nuevo = await collection.add(data);
+  res.status(201).json({ id: nuevo.id, ...data });
+};
+
+export const updateProducto = async (req, res) => {
   const id = req.params.id;
-  const productoRef = doc(db, 'productos', id);
-  await updateDoc(productoRef, req.body);
-  res.json({ mensaje: 'Producto actualizado' });
-}
+  await collection.doc(id).update(req.body);
+  res.json({ msg: 'Producto actualizado' });
+};
 
-export async function eliminarProducto(req, res) {
+export const deleteProducto = async (req, res) => {
   const id = req.params.id;
-  const productoRef = doc(db, 'productos', id);
-  await deleteDoc(productoRef);
-  res.json({ mensaje: 'Producto eliminado' });
-}
+  await collection.doc(id).delete();
+  res.json({ msg: 'Producto eliminado' });
+};
