@@ -1,21 +1,29 @@
-import { db } from './services/firestore.service.js';
+// script/migrar-a-firestore.js
+import { db } from '../config/firestore.config.js';
 import { readFile } from 'fs/promises';
-import { collection, addDoc } from 'firebase/firestore';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Para resolver rutas correctamente en ESModules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function migrateProducts() {
   try {
-    const data = await readFile('./products.json', 'utf-8');
+    const filePath = path.join(__dirname, '../config/products.json');
+    const data = await readFile(filePath, 'utf-8');
     const products = JSON.parse(data);
-    const productsRef = collection(db, 'productos');
+
+    const productsRef = db.collection('productos');
 
     for (const product of products) {
-      await addDoc(productsRef, product);
-      console.log(`Producto "${product.nombre}" migrado con éxito.`);
+      await productsRef.add(product);
+      console.log(`✅ Producto "${product.nombre}" migrado con éxito.`);
     }
 
-    console.log('✅ Migración completada.');
+    console.log('\n🎉 Migración completada con éxito.');
   } catch (error) {
-    console.error('❌ Error en la migración:', error);
+    console.error('❌ Error en la migración:', error.message);
   }
 }
 
