@@ -2,11 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import productosRoutes from './routes/productos.routes.js';
-import { initializeApp } from 'firebase/app';
-import firebaseConfig from './config/firestore.config.js';
+import './config/firestore.config.js'; // 🔥 Inicializa firebase-admin
 
 dotenv.config();
-initializeApp(firebaseConfig);
 
 const app = express();
 app.use(express.json());

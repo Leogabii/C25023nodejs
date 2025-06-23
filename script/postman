@@ -1,0 +1,463 @@
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos
+
+📌 Paso a paso para usar Postman Online con un proyecto en Codespaces:
+1. Asegurate de que tu servidor Express escuche en 0.0.0.0
+En lugar de esto:
+
+js
+Copiar
+Editar
+app.listen(3000, () => console.log('Servidor corriendo...'));
+Usá esto:
+
+js
+Copiar
+Editar
+app.listen(3000, '0.0.0.0', () => console.log('Servidor corriendo en 0.0.0.0:3000'));
+Esto permite que el servidor esté accesible desde fuera del contenedor Codespaces (o sea, desde Postman online).
+
+2. Exponé el puerto en Codespaces
+Codespaces abre los puertos automáticamente, pero para asegurarte:
+
+En la parte superior de Codespaces, hacé clic en "Ports".
+
+Asegurate de que el puerto 3000 (o el que uses) esté marcado como Public.
+
+Si no lo está, hacé clic en el ícono de engranaje ⚙️ junto al puerto y seleccioná "Make Public".
+
+3. Copiá la URL pública del servidor
+Cuando Codespaces expone tu puerto, te muestra una URL como:
+
+cpp
+Copiar
+Editar
+https://3000-tuusuario-proyecto-xxxx.github.dev/
+Esa es la URL pública de tu backend.
+
+⚠️ Importante: Esa URL puede cambiar si reinicias el Codespace.
+
+4. Usá esa URL en Postman
+En Postman online (web.postman.co):
+
+Usá la URL pública completa como base para tus requests.
+
+Por ejemplo:
+
+GET https://3000-tuusuario-proyecto-xxxx.github.dev/api/productos
+
+POST https://3000-tuusuario-proyecto-xxxx.github.dev/api/productos
+
+5. Agregá HTTPS si usás body-parser (Express 4.18+)
+Si estás usando body-parser o express.json(), asegurate de que tu servidor soporte solicitudes https correctamente (Codespaces usa HTTPS por defecto en URLs públicas).
+
+✅ Verificación rápida
+El servidor debe estar corriendo sin errores.
+
+El puerto debe estar público.
+
+Usás la URL pública en Postman.
+
+¿Querés que lo probemos paso a paso con tu proyecto actual? Puedo ayudarte a revisar el app.listen y ver cómo armar correctamente la URL del endpoint.
+
+
+
+
+
+
+
+Dijiste:
+no lo encuengtro Exponé el puerto en Codespaces
+Codespaces abre los puertos automáticamente, pero para asegurarte:
+
+En la parte superior de Codespaces, hacé clic en "Ports".
+
+
+ChatGPT dijo:
+Perfecto, vamos a ubicar bien eso paso a paso. Si no ves la pestaña "Ports", puede que esté oculta o minimizada según tu vista de Codespaces. Te explico las formas de encontrarla:
+
+✅ OPCIÓN 1: Acceder desde la barra inferior
+Mirá en la parte inferior de la ventana de Codespaces (VS Code en el navegador).
+
+Deberías ver algo como:
+
+yaml
+Copiar
+Editar
+PORT: 3000     Open in Browser 🔗
+Hacé clic derecho en ese PORT: 3000 y seleccioná "Make Public" (si aún no está público).
+
+✅ OPCIÓN 2: Abrir panel de puertos manualmente
+En la barra lateral izquierda, hacé clic en el ícono de Terminal (>) o en "View" → "Ports".
+
+También podés presionar Ctrl + Shift + P (o Cmd + Shift + P en Mac).
+
+Escribí y seleccioná: Ports: Focus on Ports View.
+
+Se abre una pestaña que muestra todos los puertos abiertos por tu aplicación.
+
+Ahí vas a ver el puerto 3000 (o el que uses) y su visibilidad (Private o Public).
+
+Hacé clic en el ícono de mundo 🌐 o en el engranaje ⚙️ para "Make Public".
+
+✅ OPCIÓN 3: Desde la terminal
+Cuando ejecutás el servidor Express (node app.js o similar), Codespaces normalmente detecta el puerto y te muestra algo como:
+
+arduino
+Copiar
+Editar
+Your application is running here: https://3000-tuusuario-proyecto-xxxx.github.dev/
+Copiá esa URL y usala en Postman directamente.
+
+📌 Una vez expuesto el puerto
+Usá la URL en Postman como:
+
+arduino
+Copiar
+Editar
+https://3000-tuusuario-proyecto-xxxx.github.dev/api/ruta
+Si querés, pegá acá el fragmento de código donde hacés el listen() y te ayudo a verificar que esté bien, o mostrame qué URL te dio Codespaces cuando levantaste el servidor.
+
+
+metodo POST
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos?"nombre"="Teclado Mecánico RGB"&"precio"=18000
+
+   {"nombre": "Teclado Mecánico RGB",
+    "precio": 25000}
+
+metodo GET ID
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos/1749234893500
+
+{
+    "id": 1749234893500,
+    "nombre": "Teclado Mecánico RGB",
+    "precio": 25000
+}
+
+metodo DELETE
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos/1749234893500
+
+devuelve el producto eliminado. al volver a ejecutarlo te dice 
+{
+    "error": "Producto no encontrado"
+}
+
+metodo GET
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos
+
+[
+    {
+        "id": 1,
+        "nombre": "Auriculares Bluetooth",
+        "precio": 15000
+    },
+    {
+        "id": 2,
+        "nombre": "Teclado Mecánico RGB",
+        "precio": 25000
+    },
+    {
+        "id": 3,
+        "nombre": "Monitor 24 pulgadas",
+        "precio": 55000
+    }
+]
+
+por consola
+Producto agregado: Producto {
+  id: 1749234893500,
+  nombre: 'Teclado Mecánico RGB',
+  precio: 25000
+}
+Producto encontrado: { id: 1749234893500, nombre: 'Teclado Mecánico RGB', precio: 25000 }
+Producto eliminado: { id: 1749234893500, nombre: 'Teclado Mecánico RGB', precio: 25000 }
+Intento de eliminar producto no encontrado con ID: 1749234893500
+Productos listados
+Producto encontrado: { id: 3, nombre: 'Monitor 24 pulgadas', precio: 55000 }
+
+https://laughing-winner-pv65vprq6wjf7xqg-3000.app.github.dev/productos/3  esto es la direccion de codespace y la url de la api
+
+✅ Paso 1: Hacer login y obtener el token
+📤 Petición
+Método: POST
+
+URL: http://localhost:3000/auth/login (ajustá el puerto si es otro)
+
+Body (JSON):
+
+json
+Copiar
+Editar
+{
+  "username": "admin",
+  "password": "123456"
+}
+⚠️ Estos valores deben coincidir con los definidos en tu AuthController. Si usás otro usuario o contraseña, cambialo ahí también.
+
+✅ Respuesta esperada:
+json
+Copiar
+Editar
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+Copiá ese token completo, lo vas a usar en el siguiente paso.
+
+✅ Paso 2: Usar el token en rutas protegidas (POST /products, update, delete)
+📤 Petición de ejemplo:
+Método: POST
+
+URL: http://localhost:3000/products
+
+Headers:
+
+makefile
+Copiar
+Editar
+Key: Authorization
+Value: Bearer <el_token_que_copiaste>
+Body (JSON):
+
+json
+Copiar
+Editar
+{
+  "nombre": "Producto secreto",
+  "precio": 999
+}
+📤 O para actualizar:
+http
+Copiar
+Editar
+POST http://localhost:3000/products/3/update
+Mismo header Authorization: Bearer <token>
+
+Body:
+
+json
+Copiar
+Editar
+{
+  "nombre": "Nuevo nombre",
+  "precio": 123
+}
+📤 O para eliminar:
+http
+Copiar
+Editar
+POST http://localhost:3000/products/3/delete
+Solo poné el header con el token, no necesita body.
+
+🔐 Resultado esperado:
+Si el token es válido, vas a poder agregar/editar/eliminar.
+
+Si el token es inválido o no está presente, vas a recibir:
+
+json
+Copiar
+Editar
+{
+  "message": "Token no proporcionado"
+}
+o
+
+json
+Copiar
+Editar
+{
+  "message": "Token inválido o expirado"
+}
+✅ Confirmamos que funciona
+¿Querés que también te prepare un formulario de login en EJS que genere ese token para usarlo desde el navegador?
+
+
+
+
+
+
+
+Dijiste:
+no puse raw json y me arrojo erro 404
+Not Found
+
+
+ChatGPT dijo:
+Gracias por el detalle. El error 404 Not Found puede deberse a varios motivos comunes. Vamos a revisarlos uno a uno.
+
+✅ Verificación rápida para el login
+1. 📌 URL correcta
+Asegurate de que estás haciendo el POST a:
+
+bash
+Copiar
+Editar
+http://localhost:3000/auth/login
+(no /login, no /auth, sino exactamente /auth/login)
+
+2. 📌 Método correcto
+Debe ser POST, no GET.
+
+3. 📌 Body correctamente enviado
+En Postman, seleccioná:
+
+Tab: Body
+
+Opción: raw
+
+Selector derecho: JSON
+
+Pegá esto:
+
+json
+Copiar
+Editar
+{
+  "username": "admin",
+  "password": "123456"
+}
+4. 📌 Ruta bien definida en el código
+Verificá que tengas esta ruta en auth.routes.js:
+
+js
+Copiar
+Editar
+import express from 'express';
+import { AuthController } from '../controllers/auth.controller.js';
+
+const router = express.Router();
+
+router.post('/login', AuthController.login);
+
+export default router;
+Y en index.js:
+
+js
+Copiar
+Editar
+import authRoutes from './routes/auth.routes.js';
+app.use('/auth', authRoutes);
+Esto asegura que la ruta completa sea /auth/login.
+
+✅ Si todo eso está bien, debería funcionar.
+¿Querés que te ayude a revisar el auth.controller.js y auth.routes.js por si hay algún error o nombre mal escrito?
+Si me lo pegás acá, te lo reviso línea por línea.
+
+
+
+
+
+
+
+Dijiste:
+esgto me arrojo {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ5NzUwMjcwLCJleHAiOjE3NDk3NTM4NzB9.l1-xso84YpoG2ntTQaiu9BJSJnGHBf97WSc0XylhaAI"
+} perfecto no??
+
+
+ChatGPT dijo:
+¡Sí, perfecto! 🎉
+
+Esa respuesta:
+
+json
+Copiar
+Editar
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+significa que el login fue exitoso y se generó correctamente el token JWT. Ya estás autenticado.
+
+✅ ¿Qué sigue?
+Usar ese token para acceder a las rutas protegidas:
+
+Ejemplo en Postman para crear producto:
+Método: POST
+
+URL: http://localhost:3000/products
+
+Headers:
+
+Key: Authorization
+
+Value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... (pegá tu token completo)
+
+Body:
+
+json
+Copiar
+Editar
+{
+  "nombre": "Zapatillas Auth",
+  "precio": 19990
+}
+Si funciona, deberías ver:
+json
+Copiar
+Editar
+{
+  "id": 3,
+  "nombre": "Zapatillas Auth",
+  "precio": 19990,
+  ...
+}
+Si el token es inválido, vas a ver:
+
+json
+Copiar
+Editar
+{ "message": "Token inválido o expirado" }
+
+
+eogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ npm start
+
+> tienda-api-json@1.0.0 start
+> node index.js
+
+Servidor escuchando en http://localhost:3000
+Productos listados
+Productos listados
+^C
+@Leogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ npm install jsonwebtoken dotenv
+
+added 15 packages, and audited 85 packages in 1s
+
+15 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+@Leogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ npm start
+
+> tienda-api-json@1.0.0 start
+> node index.js
+
+file:///workspaces/nodeJsEntregaFinal/routes/productos.routes.js:16
+router.post('/', verifyToken, productController.create.bind(productController));
+                              ^
+
+ReferenceError: productController is not defined
+    at file:///workspaces/nodeJsEntregaFinal/routes/productos.routes.js:16:31
+    at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v20.19.0
+@Leogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ npm start
+
+> tienda-api-json@1.0.0 start
+> node index.js
+
+Servidor escuchando en http://localhost:3000
+Productos listados
+^C
+@Leogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ npm start
+
+> tienda-api-json@1.0.0 start
+> node index.js
+
+Servidor escuchando en http://localhost:3000
+Producto agregado: Producto {
+  id: 1749750522716,
+  nombre: 'Zapatillas Auth',
+  precio: 19990
+}
+^C^C
+@Leogabii ➜ /workspaces/nodeJsEntregaFinal (main) $ 

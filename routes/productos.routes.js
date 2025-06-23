@@ -1,12 +1,12 @@
 import express from 'express';
-import { obtenerProductos, agregarProducto, actualizarProducto, eliminarProducto } from '../controllers/productos.controller.js';
+import { getAllProductos, createProducto, updateProducto, deleteProducto } from '../controllers/productos.controller.js';
 import { verificarToken } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/', obtenerProductos);
-router.post('/', verificarToken, agregarProducto);
-router.put('/:id', verificarToken, actualizarProducto);
-router.delete('/:id', verificarToken, eliminarProducto);
+router.get('/', getAllProductos);
+router.post('/', verificarToken, createProducto);
+router.put('/:id', verificarToken, updateProducto);
+router.delete('/:id', verificarToken, deleteProducto);
 
 export default router;
