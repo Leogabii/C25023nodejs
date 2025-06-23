@@ -11,6 +11,7 @@ export const login = async (req, res) => {
     const snapshot = await usersRef.where('username', '==', username).get();
 
     if (snapshot.empty) {
+      console.log("Usuario no encontrado.");
       return res.status(401).json({ msg: 'Usuario no encontrado' });
     }
 
@@ -18,6 +19,7 @@ export const login = async (req, res) => {
     const userData = userDoc.data();
 
     if (userData.password !== password) {
+      console.log("contraseña incorrecta.");
       return res.status(401).json({ msg: 'Contraseña incorrecta' });
     }
 
@@ -27,6 +29,7 @@ export const login = async (req, res) => {
 
     res.json({ token });
   } catch (error) {
+    console.log("Error al autenticar.");
     res.status(500).json({ msg: 'Error al autenticar', error: error.message });
   }
 };
