@@ -6,10 +6,13 @@ const collection = db.collection('productos');
 export const getAllProductos = async (req, res) => {
   try {
     const snapshot = await db.collection('productos').get();
-    const productos = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const productos = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        firestoreId: doc.id, // ID único de Firestore
+        ...data              // resto de los campos del producto (incluye posible campo 'id' interno)
+      };
+    });
     res.json(productos);
   } catch (error) {
     res.status(500).json({ msg: 'Error al obtener productos', error: error.message });
