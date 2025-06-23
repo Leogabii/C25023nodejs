@@ -41,12 +41,37 @@ export const getProductoById = async (req, res) => {
 };
 
 export const createProducto = async (req, res) => {
-  const data = req.body;
-  const nuevo = await collection.add(data);
-  console.log("Producto  agregado.");
+  try {
+    const {id, nombre, descripcion, precio, categoria, stock, disponible } = req.body;
 
-  res.status(201).json({ id: nuevo.id, ...data });
+    // Validación básica (podés ajustar los checks según necesidad)
+    if (
+      typeof id !== 'number' ||
+      typeof nombre !== 'string' ||
+      typeof descripcion !== 'string' ||
+      typeof precio !== 'number' ||
+      typeof categoria !== 'string' ||
+      typeof stock !== 'number' ||
+      typeof disponible !== 'boolean'
+    ) {
+      return res.status(400).json({ error: 'Datos inválidos' });
+    }
+
+    // Crear objeto limpio con solo los campos esperados
+    const producto = { id, nombre, descripcion, precio, categoria, stock, disponible };
+
+    // Agregar a Firestore
+    const nuevo = await collection.add(producto);
+    console.log('Producto agregado.');
+
+    // Responder con el nuevo ID + datos guardados
+    res.status(201).json({...producto });
+  } catch (error) {
+    console.error('Error al crear producto:', error.message);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
 };
+
 
 export const updateProducto = async (req, res) => {
   const id = req.params.id;
