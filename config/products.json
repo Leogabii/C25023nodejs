@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "nombre": "Producto 1",
+    "descripcion": "Descripción del producto 1",
+    "precio": 26.24,
+    "categoria": "tecnología",
+    "stock": 87,
+    "disponible": true
+  },
+  {
+    "id": "2",
+    "nombre": "Producto 2",
+    "descripcion": "Descripción del producto 2",
+    "precio": 29.87,
+    "categoria": "ropa",
+    "stock": 10,
+    "disponible": true
+  },
+  {
+    "id": "3",
+    "nombre": "Producto 3",
+    "descripcion": "Descripción del producto 3",
+    "precio": 54.98,
+    "categoria": "tecnología",
+    "stock": 99,
+    "disponible": true
+  },
+  {
+    "id": "4",
+    "nombre": "Producto 4",
+    "descripcion": "Descripción del producto 4",
+    "precio": 37.56,
+    "categoria": "hogar",
+    "stock": 14,
+    "disponible": true
+  },
+  {
+    "id": "5",
+    "nombre": "Producto 5",
+    "descripcion": "Descripción del producto 5",
+    "precio": 76.56,
+    "categoria": "tecnología",
+    "stock": 15,
+    "disponible": true
+  },
+  {
+    "id": "6",
+    "nombre": "Producto 6",
+    "descripcion": "Descripción del producto 6",
+    "precio": 81.4,
+    "categoria": "libros",
+    "stock": 75,
+    "disponible": true
+  },
+  {
+    "id": "7",
+    "nombre": "Producto 7",
+    "descripcion": "Descripción del producto 7",
+    "precio": 90.76,
+    "categoria": "libros",
+    "stock": 7,
+    "disponible": true
+  },
+  {
+    "id": "8",
+    "nombre": "Producto 8",
+    "descripcion": "Descripción del producto 8",
+    "precio": 22.95,
+    "categoria": "libros",
+    "stock": 89,
+    "disponible": true
+  },
+  {
+    "id": "9",
+    "nombre": "Producto 9",
+    "descripcion": "Descripción del producto 9",
+    "precio": 11.46,
+    "categoria": "ropa",
+    "stock": 43,
+    "disponible": true
+  },
+  {
+    "id": "10",
+    "nombre": "Producto 10",
+    "descripcion": "Descripción del producto 10",
+    "precio": 30.67,
+    "categoria": "ropa",
+    "stock": 83,
+    "disponible": true
+  }
+]
