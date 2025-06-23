@@ -54,8 +54,17 @@ export const updateProducto = async (req, res) => {
 export const deleteProducto = async (req, res) => {
   try {
     const id = req.params.id;
-    await db.collection('productos').doc(id).delete();
-    res.json({ msg: 'Producto eliminado' });
+    if (!id) return res.status(400).json({ msg: 'ID no proporcionado' });
+
+    const docRef = db.collection('productos').doc(id);
+    const doc = await docRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ msg: 'Producto no encontrado' });
+    }
+
+    await docRef.delete();
+    res.json({ msg: 'Producto eliminado correctamente' });
   } catch (error) {
     res.status(500).json({ msg: 'Error al eliminar producto', error: error.message });
   }
