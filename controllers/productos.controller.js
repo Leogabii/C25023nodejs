@@ -26,7 +26,7 @@ export const getProductoById = async (req, res) => {
     if (!doc.exists) {
       return res.status(404).json({ msg: 'Producto no encontrado' });
     }
-
+    
     res.json({ id: doc.id, ...doc.data() });
   } catch (error) {
     res.status(500).json({ msg: 'Error al obtener el producto', error: error.message });

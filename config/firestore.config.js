@@ -18,8 +18,8 @@ const firebaseConfig = {
 };
 
 // 👉 Ponelo acá:
-console.log('Firebase config:', firebaseConfig); // DEBUG
-console.log('PRIVATE_KEY (1ra línea):', process.env.FIREBASE_PRIVATE_KEY?.slice(0, 30));
+//console.log('Firebase config:', firebaseConfig); // DEBUG
+//console.log('PRIVATE_KEY (1ra línea):', process.env.FIREBASE_PRIVATE_KEY?.slice(0, 30));
 
 admin.initializeApp({
   credential: admin.credential.cert(firebaseConfig)
