@@ -5,24 +5,39 @@ const collection = db.collection('productos');
 
 export const getAllProductos = async (req, res) => {
   try {
+    const { disponible, orden } = req.query;
+
     const snapshot = await db.collection('productos').get();
-    const productos = snapshot.docs.map(doc => {
+
+    let productos = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
-        firestoreId: doc.id, // ID único de Firestore
-        ...data              // resto de los campos del producto (incluye posible campo 'id' interno)
+        firestoreId: doc.id,
+        ...data
       };
     });
-    console.log("Listado de productos.");
-    
-    res.json(productos);
-  } catch (error) {
-    console.log("Error al obtener productos.");
 
+    // FILTRO por disponible (true o false)
+    if (disponible !== undefined) {
+      const disponibleBool = disponible === 'true';
+      productos = productos.filter(p => p.disponible === disponibleBool);
+    }
+
+    // ORDENAMIENTO por precio
+    if (orden === 'asc') {
+      productos.sort((a, b) => a.precio - b.precio);
+    } else if (orden === 'desc') {
+      productos.sort((a, b) => b.precio - a.precio);
+    }
+
+    console.log("Productos filtrados:", productos.length);
+    res.json(productos);
+
+  } catch (error) {
+    console.log("Error al obtener productos:", error.message);
     res.status(500).json({ msg: 'Error al obtener productos', error: error.message });
   }
 };
-
 export const getProductoById = async (req, res) => {
   try {
     const doc = await db.collection('productos').doc(req.params.id).get();
