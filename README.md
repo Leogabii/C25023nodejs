@@ -17,6 +17,7 @@ La API permite realizar operaciones CRUD sobre productos (crear, obtener, modifi
 /controllers      → Lógica de negocio  
 /routes           → Endpoints  
 /config           → Conexión con Firestore  
+/services         → Módulo de acceso a Firestore
 /middlewares      → Middleware de JWT  
 
 ## 🧑‍💻 Cómo ejecutar el proyecto
