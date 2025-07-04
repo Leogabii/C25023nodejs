@@ -22,7 +22,7 @@ La API permite realizar operaciones CRUD sobre productos (crear, obtener, modifi
 ## 🧑‍💻 Cómo ejecutar el proyecto
 
 ```bash
-git clone https://github.com/tuusuario/C25023nodejs-main.git
+git clone https://github.com/Leogabii/C25023nodejs-main.git
 cd C25023nodejs-main
 npm install
 npm start
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 ```json
 {
-  "username": "admin",
+  "username": "root",
   "password": "1234"
 }
 ```
